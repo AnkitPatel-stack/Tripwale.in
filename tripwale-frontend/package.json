@@ -10,20 +10,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.20.0",
-    "axios": "^1.6.2",
-    "@mui/material": "^5.14.18",
+    "@emailjs/browser": "^4.3.3",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.18",
-    "three": "^0.160.0",
-    "@react-three/fiber": "^8.14.5",
+    "@mui/material": "^5.14.18",
     "@react-three/drei": "^9.94.3",
+    "@react-three/fiber": "^8.14.5",
+    "axios": "^1.6.2",
     "framer-motion": "^10.16.16",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.5.3",
-    "@emailjs/browser": "^4.3.3"
+    "react-router-dom": "^6.20.0",
+    "swiper": "^12.1.0",
+    "three": "^0.160.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

@@ -119,28 +119,7 @@ const Header = () => {
                     borderRadius: 1
                   }}
                 />
-                <Box>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontWeight: 700,
-                      color: '#1e3a8a',
-                      letterSpacing: '-0.5px',
-                      lineHeight: 1.1,
-                    }}
-                  >
-                    TripWale.in
-                  </Typography>
-                  <Typography
-                    variant="caption"
-                    sx={{
-                      color: 'text.secondary',
-                      fontWeight: 500,
-                      letterSpacing: '0.5px',
-                    }}
-                  >
-                    Tour & Travels
-                  </Typography>
+                <Box> 
                 </Box>
               </Box>
 
