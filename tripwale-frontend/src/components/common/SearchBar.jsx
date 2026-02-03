@@ -1,140 +1,173 @@
-import { Search, Calendar, MapPin, Users } from 'lucide-react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react'
+import {
+  Box,
+  TextField,
+  Button,
+  InputAdornment,
+  MenuItem,
+  Grid,
+} from '@mui/material'
+import {
+  Search as SearchIcon,
+  LocationOn,
+  CalendarToday,
+  People,
+} from '@mui/icons-material'
 
-const SearchBar = ({ variant = 'hero' }) => {
-  const [searchData, setSearchData] = useState({
+const SearchBar = () => {
+  const [searchParams, setSearchParams] = useState({
     destination: '',
     checkIn: '',
     checkOut: '',
-    guests: '2',
-  });
-
-  const navigate = useNavigate();
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    // Navigate to tours page with search parameters
-    navigate(`/tours?destination=${searchData.destination}`);
-  };
+    guests: 1,
+    type: 'hotel',
+  })
 
   const destinations = [
-    'Goa',
-    'Kerala',
-    'Rajasthan',
-    'Himachal Pradesh',
-    'Andaman',
-    'Sikkim',
-    'Uttarakhand',
-    'Ladakh',
-  ];
+    'Bali, Indonesia',
+    'Paris, France',
+    'Tokyo, Japan',
+    'New York, USA',
+    'Dubai, UAE',
+    'Sydney, Australia',
+  ]
 
-  if (variant === 'compact') {
-    return (
-      <div className="relative max-w-2xl mx-auto">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-          <Search className="text-gray-400" size={20} />
-        </div>
-        <input
-          type="text"
-          placeholder="Where do you want to go?"
-          className="w-full pl-10 pr-4 py-3 rounded-full border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-          value={searchData.destination}
-          onChange={(e) => setSearchData({ ...searchData, destination: e.target.value })}
-        />
-        <button
-          onClick={handleSearch}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-full transition-colors"
-        >
-          Search
-        </button>
-      </div>
-    );
+  const travelTypes = [
+    { value: 'hotel', label: 'Hotel Stay' },
+    { value: 'flight', label: 'Flights' },
+    { value: 'package', label: 'Tour Package' },
+    { value: 'cruise', label: 'Cruise' },
+  ]
+
+  const handleChange = (field) => (event) => {
+    setSearchParams({ ...searchParams, [field]: event.target.value })
+  }
+
+  const handleSearch = () => {
+    console.log('Searching:', searchParams)
+    // Implement search logic here
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl p-6">
-      <form onSubmit={handleSearch} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Destination */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 items-center">
-              <MapPin size={16} className="mr-2" />
-              Destination
-            </label>
-            <select
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              value={searchData.destination}
-              onChange={(e) => setSearchData({ ...searchData, destination: e.target.value })}
-            >
-              <option value="">Where to?</option>
-              {destinations.map((dest) => (
-                <option key={dest} value={dest}>
-                  {dest}
-                </option>
-              ))}
-            </select>
-          </div>
+    <Box
+      sx={{
+        bgcolor: 'white',
+        borderRadius: 4,
+        p: 3,
+        boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+        maxWidth: '1000px',
+        mx: 'auto',
+      }}
+    >
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={12} md={3}>
+          <TextField
+            select
+            fullWidth
+            label="Destination"
+            value={searchParams.destination}
+            onChange={handleChange('destination')}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LocationOn color="primary" />
+                </InputAdornment>
+              ),
+            }}
+          >
+            {destinations.map((dest) => (
+              <MenuItem key={dest} value={dest}>
+                {dest}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
 
-          {/* Check-in */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 items-center">
-              <Calendar size={16} className="mr-2" />
-              Check-in
-            </label>
-            <input
-              type="date"
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              value={searchData.checkIn}
-              onChange={(e) => setSearchData({ ...searchData, checkIn: e.target.value })}
-            />
-          </div>
+        <Grid item xs={12} sm={6} md={2}>
+          <TextField
+            fullWidth
+            type="date"
+            label="Check-in"
+            value={searchParams.checkIn}
+            onChange={handleChange('checkIn')}
+            InputLabelProps={{ shrink: true }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <CalendarToday color="primary" />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-          {/* Check-out */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 items-center">
-              <Calendar size={16} className="mr-2" />
-              Check-out
-            </label>
-            <input
-              type="date"
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              value={searchData.checkOut}
-              onChange={(e) => setSearchData({ ...searchData, checkOut: e.target.value })}
-            />
-          </div>
+        <Grid item xs={12} sm={6} md={2}>
+          <TextField
+            fullWidth
+            type="date"
+            label="Check-out"
+            value={searchParams.checkOut}
+            onChange={handleChange('checkOut')}
+            InputLabelProps={{ shrink: true }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <CalendarToday color="primary" />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
 
-          {/* Guests */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2 items-center">
-              <Users size={16} className="mr-2" />
-              Guests
-            </label>
-            <select
-              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              value={searchData.guests}
-              onChange={(e) => setSearchData({ ...searchData, guests: e.target.value })}
-            >
-              <option value="1">1 Traveler</option>
-              <option value="2">2 Travelers</option>
-              <option value="3">3 Travelers</option>
-              <option value="4">4 Travelers</option>
-              <option value="5+">5+ Travelers</option>
-              <option value="family">Family</option>
-            </select>
-          </div>
-        </div>
+        <Grid item xs={12} sm={6} md={2}>
+          <TextField
+            select
+            fullWidth
+            label="Travel Type"
+            value={searchParams.type}
+            onChange={handleChange('type')}
+          >
+            {travelTypes.map((type) => (
+              <MenuItem key={type.value} value={type.value}>
+                {type.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
 
-        <button
-          type="submit"
-          className="w-full md:w-auto bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-center space-x-2 transition-colors"
-        >
-          <Search size={20} />
-          <span>Search Packages</span>
-        </button>
-      </form>
-    </div>
-  );
-};
+        <Grid item xs={12} sm={6} md={1}>
+          <TextField
+            fullWidth
+            type="number"
+            label="Guests"
+            value={searchParams.guests}
+            onChange={handleChange('guests')}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <People color="primary" />
+                </InputAdornment>
+              ),
+              inputProps: { min: 1, max: 10 },
+            }}
+          />
+        </Grid>
 
-export default SearchBar;
+        <Grid item xs={12} md={2}>
+          <Button
+            fullWidth
+            variant="contained"
+            size="large"
+            startIcon={<SearchIcon />}
+            onClick={handleSearch}
+            sx={{ height: '56px' }}
+          >
+            Search
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
+  )
+}
+
+export default SearchBar

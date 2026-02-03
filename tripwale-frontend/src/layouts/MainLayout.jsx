@@ -1,17 +1,22 @@
-import { Outlet } from 'react-router-dom';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import React from 'react'
+import { Box } from '@mui/material'
+import Header from '../components/layout/Header'
+import Footer from '../components/layout/Footer'
+import { Outlet } from 'react-router-dom'  // IMPORTANT: Yeh add karo!
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <Header />
-      <main className="grow">
-        <Outlet />
-      </main>
+      
+      {/* Yeh IMPORTANT hai - Outlet use karo */}
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <Outlet />  {/* Yahan pages ka content ayega */}
+      </Box>
+      
       <Footer />
-    </div>
-  );
-};
+    </Box>
+  )
+}
 
-export default MainLayout;
+export default MainLayout
