@@ -29,7 +29,7 @@ const Header = () => {
   const menuItems = [
     { label: 'Home', path: '/' },
     { label: 'Domestic Tours', path: '/domestic-tours' },
-    { label: 'International Tours', path: '/international-tours' },
+    // { label: 'International Tours', path: '/international-tours' },
     { label: 'Religious Yatra', path: '/religious-yatra' },
     { label: 'Trekking Tours', path: '/trekking' },
     { label: 'About Us', path: '/about' },

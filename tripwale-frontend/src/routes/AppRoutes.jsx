@@ -15,7 +15,7 @@ const AppRoutes = () => {
             <Route element={<MainLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/domestic-tours" element={<DomesticTours />} />
-                <Route path="/international-tours" element={<InternationalTours />} />
+                {/* <Route path="/international-tours" element={<InternationalTours />} /> */}
                 <Route path="/religious-yatra" element={<ReligiousYatra />} />
                 <Route path="/trekking" element={<Trekking />} />
                 <Route path="/about" element={<AboutUs />} />

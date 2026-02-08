@@ -12,8 +12,6 @@ import {
   IconButton,
   Chip,
   Paper,
-  alpha,
-  useTheme,
   Fade,
   Grow,
   Zoom,
@@ -25,20 +23,26 @@ import {
   ArrowForward,
   East,
   West,
-  Flight,
+  FlightTakeoff,
   Hotel,
-  Restaurant,
   DirectionsBus,
+  Restaurant,
   TempleHindu,
-  Terrain,
+  Hiking,
   BeachAccess,
   Castle,
-  Forest,
+  Terrain,
+  LocalOffer,
+  Phone,
+  Groups,
+  Security,
 } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 import { keyframes } from '@emotion/react'
 
-// Animation keyframes
+// Import local images for tours (create an images folder in src and add these)
+// For now using relevant Unsplash images with proper attribution
+
 const floatAnimation = keyframes`
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-10px); }
@@ -56,116 +60,145 @@ const fadeIn = keyframes`
 
 const Home = () => {
   const navigate = useNavigate()
-  const theme = useTheme()
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const heroSlides = [
     {
-      image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800',
-      title: 'Explore Incredible India',
-      subtitle: 'Discover the rich culture and heritage'
+      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+      title: 'Experience Incredible India',
+      subtitle: 'Discover diverse cultures, heritage & landscapes'
     },
     {
-      image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4',
-      title: 'Spiritual Journeys',
-      subtitle: 'Experience divine destinations across India'
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+      title: 'Spiritual Journeys Await',
+      subtitle: 'Divine destinations across the country'
     },
     {
-      image: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b',
-      title: 'Adventure Awaits',
+      image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+      title: 'Adventure in Himalayas',
       subtitle: 'Trekking and outdoor adventures'
     },
     {
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96',
-      title: 'Beach Getaways',
-      subtitle: 'Relax at serene coastal destinations'
+      image: 'https://images.unsplash.com/photo-1503220317375-aaad61436b1b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80',
+      title: 'Beach & Mountain Escapes',
+      subtitle: 'Perfect getaways for every season'
     }
   ]
 
   const featuredTours = [
     {
       id: 1,
-      title: 'Kashmir Paradise',
+      title: 'Kashmir Paradise Tour',
       location: 'Srinagar, Gulmarg, Pahalgam',
       duration: '6 Nights / 7 Days',
       rating: 4.8,
-      image: 'https://images.unsplash.com/photo-1593693397695-36243b84f70b',
-      category: 'domestic',
-      icon: <Terrain />,
+      price: '₹25,999',
+      image: 'https://images.unsplash.com/photo-1593693397695-36243b84f70b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      category: 'hill-station',
       tag: 'Most Popular'
     },
     {
       id: 2,
       title: 'Kerala Backwaters',
-      location: 'Alleppey, Munnar, Kochi',
+      location: 'Alleppey, Munnar, Thekkady',
       duration: '5 Nights / 6 Days',
       rating: 4.7,
-      image: 'https://images.unsplash.com/photo-1528164344705-47542687000d',
-      category: 'domestic',
-      icon: <BeachAccess />,
+      price: '₹21,499',
+      image: 'https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      category: 'backwater',
       tag: 'Best Seller'
     },
     {
       id: 3,
-      title: 'Rajasthan Royal',
-      location: 'Jaipur, Udaipur, Jodhpur',
+      title: 'Rajasthan Heritage Tour',
+      location: 'Jaipur, Udaipur, Jaisalmer',
       duration: '7 Nights / 8 Days',
       rating: 4.9,
-      image: 'https://images.unsplash.com/photo-1532386236358-a33d8a9434e3',
-      category: 'domestic',
-      icon: <Castle />,
+      price: '₹29,999',
+      image: 'https://images.unsplash.com/photo-1532386236358-a33d8a9434e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      category: 'heritage',
       tag: 'Cultural'
     },
     {
       id: 4,
-      title: 'Himalayan Trek',
-      location: 'Manali, Kasol, Kheerganga',
+      title: 'Himalayan Adventure Trek',
+      location: 'Manali, Kasol, Solang Valley',
       duration: '5 Nights / 6 Days',
       rating: 4.6,
-      image: 'https://images.unsplash.com/photo-1551632811-561732d1e306',
+      price: '₹18,999',
+      image: 'https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       category: 'trekking',
-      icon: <Terrain />,
       tag: 'Adventure'
     },
     {
       id: 5,
       title: 'Char Dham Yatra',
-      location: 'Kedarnath, Badrinath, Gangotri',
+      location: 'Kedarnath, Badrinath, Yamunotri, Gangotri',
       duration: '10 Nights / 11 Days',
       rating: 4.9,
-      image: 'https://images.unsplash.com/photo-1621265113764-2af0479b2d0b',
+      price: '₹34,999',
+      image: 'https://images.unsplash.com/photo-1621265113764-2af0479b2d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
       category: 'religious',
-      icon: <TempleHindu />,
       tag: 'Spiritual'
     },
     {
       id: 6,
-      title: 'Goa Beaches',
-      location: 'North Goa, South Goa',
+      title: 'Goa Beach Holiday',
+      location: 'North Goa, South Goa, Dudhsagar',
       duration: '4 Nights / 5 Days',
       rating: 4.5,
-      image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2',
-      category: 'domestic',
-      icon: <BeachAccess />,
+      price: '₹16,999',
+      image: 'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      category: 'beach',
       tag: 'Relaxing'
+    },
+    {
+      id: 7,
+      title: 'Ladakh Road Trip',
+      location: 'Leh, Nubra Valley, Pangong Lake',
+      duration: '7 Nights / 8 Days',
+      rating: 4.8,
+      price: '₹27,999',
+      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      category: 'adventure',
+      tag: 'Biking'
+    },
+    {
+      id: 8,
+      title: 'South India Temple Tour',
+      location: 'Chennai, Mahabalipuram, Kanchipuram',
+      duration: '6 Nights / 7 Days',
+      rating: 4.7,
+      price: '₹22,499',
+      image: 'https://images.unsplash.com/photo-1587135941948-670b381f08ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+      category: 'religious',
+      tag: 'Temples'
     }
   ]
 
   const categories = [
-    { icon: <Flight />, title: 'Flight Packages', count: '50+ Tours' },
-    { icon: <Hotel />, title: 'Hotel Stays', count: '200+ Hotels' },
-    { icon: <DirectionsBus />, title: 'Bus Tours', count: '30+ Routes' },
-    { icon: <Restaurant />, title: 'Food Tours', count: 'Local Cuisine' },
-    { icon: <TempleHindu />, title: 'Religious', count: '15+ Yatras' },
-    { icon: <Terrain />, title: 'Trekking', count: '20+ Treks' },
+    { icon: <FlightTakeoff />, title: 'Flight Tours', desc: 'Air packages' },
+    { icon: <Hotel />, title: 'Hotel Stays', desc: 'Luxury & budget' },
+    { icon: <DirectionsBus />, title: 'Bus Tours', desc: 'Road trips' },
+    { icon: <TempleHindu />, title: 'Religious Tours', desc: 'Pilgrimages' },
+    { icon: <Hiking />, title: 'Trekking', desc: 'Adventure trips' },
+    { icon: <BeachAccess />, title: 'Beach Tours', desc: 'Coastal getaways' },
+    { icon: <Castle />, title: 'Heritage Tours', desc: 'Historical sites' },
+    { icon: <Terrain />, title: 'Hill Stations', desc: 'Mountain retreats' },
   ]
 
-  const affiliations = [
-    { name: 'MakeMyTrip', logo: 'https://logos-world.net/wp-content/uploads/2020/11/Make-My-Trip-Logo.png' },
-    { name: 'IRCTC', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/95/IRCTC_Logo.svg/1200px-IRCTC_Logo.svg.png' },
-    { name: 'Yatra', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Yatra.com_logo.svg/2560px-Yatra.com_logo.svg.png' },
-    { name: 'EaseMyTrip', logo: 'https://www.easemytrip.com/logo.png' },
-    { name: 'Goibibo', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Goibibo_logo.svg/2560px-Goibibo_logo.svg.png' },
+  const stats = [
+    { value: '500+', label: 'Happy Travelers' },
+    { value: '50+', label: 'Destinations' },
+    { value: '98%', label: 'Satisfaction Rate' },
+    { value: '100+', label: 'Tours Organized' },
+  ]
+
+  const features = [
+    { icon: <LocalOffer />, title: 'Best Price', desc: 'Guaranteed lowest prices' },
+    { icon: <Security />, title: 'Safe Travel', desc: 'Verified hotels & transport' },
+    { icon: <Groups />, title: 'Group Tours', desc: 'Friendly group travels' },
+    { icon: <Phone />, title: '24/7 Support', desc: 'Always available for you' },
   ]
 
   useEffect(() => {
@@ -186,9 +219,13 @@ const Home = () => {
   return (
     <Box sx={{ overflow: 'hidden' }}>
       {/* Hero Section with Slider */}
-      <Box sx={{ position: 'relative', height: { xs: '70vh', md: '90vh' }, overflow: 'hidden' }}>
+      <Box sx={{ 
+        position: 'relative', 
+        height: { xs: '60vh', sm: '70vh', md: '85vh', lg: '90vh' }, 
+        overflow: 'hidden' 
+      }}>
         {heroSlides.map((slide, index) => (
-          <Fade key={index} in={currentSlide === index} timeout={1000}>
+          <Fade key={index} in={currentSlide === index} timeout={800}>
             <Box
               sx={{
                 position: 'absolute',
@@ -196,23 +233,33 @@ const Home = () => {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url(${slide.image})`,
+                background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url(${slide.image})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
+                backgroundAttachment: { xs: 'scroll', md: 'fixed' },
                 display: currentSlide === index ? 'block' : 'none',
                 animation: `${fadeIn} 1s ease-out`,
               }}
             >
-              <Container sx={{ height: '100%', display: 'flex', alignItems: 'center' }}>
-                <Box sx={{ maxWidth: 800, color: 'white' }}>
+              <Container sx={{ 
+                height: '100%', 
+                display: 'flex', 
+                alignItems: 'center',
+                px: { xs: 2, sm: 3, md: 4 }
+              }}>
+                <Box sx={{ 
+                  maxWidth: { xs: '100%', md: 800 }, 
+                  color: 'white',
+                  textAlign: { xs: 'center', md: 'left' }
+                }}>
                   <Typography 
                     variant="h1" 
                     sx={{ 
-                      fontSize: { xs: '2.5rem', md: '4rem' }, 
+                      fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3.5rem', lg: '4rem' }, 
                       fontWeight: 800,
-                      mb: 2,
-                      textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-                      lineHeight: 1.2
+                      mb: { xs: 1, sm: 2 },
+                      textShadow: '2px 2px 8px rgba(0,0,0,0.5)',
+                      lineHeight: { xs: 1.2, sm: 1.3 },
                     }}
                   >
                     {slide.title}
@@ -220,32 +267,63 @@ const Home = () => {
                   <Typography 
                     variant="h5" 
                     sx={{ 
-                      mb: 4, 
+                      mb: { xs: 3, sm: 4 }, 
                       opacity: 0.9,
-                      fontSize: { xs: '1.2rem', md: '1.5rem' }
+                      fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
+                      maxWidth: 600
                     }}
                   >
                     {slide.subtitle}
                   </Typography>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    onClick={() => navigate('/domestic-tours')}
-                    endIcon={<ArrowForward />}
-                    sx={{ 
-                      px: 4, 
-                      py: 1.5, 
-                      fontSize: '1.1rem',
-                      backgroundColor: '#FF6B6B',
-                      '&:hover': {
-                        backgroundColor: '#FF5252',
-                        transform: 'translateY(-2px)',
-                        transition: 'all 0.3s ease'
-                      }
-                    }}
-                  >
-                    Explore Tours
-                  </Button>
+                  <Box sx={{ 
+                    display: 'flex', 
+                    gap: 2, 
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    justifyContent: { xs: 'center', md: 'flex-start' }
+                  }}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      onClick={() => navigate('/domestic-tours')}
+                      endIcon={<ArrowForward />}
+                      sx={{ 
+                        px: { xs: 3, sm: 4 }, 
+                        py: { xs: 1, sm: 1.5 },
+                        fontSize: { xs: '0.9rem', sm: '1rem' },
+                        backgroundColor: '#FF6B6B',
+                        borderRadius: '50px',
+                        '&:hover': {
+                          backgroundColor: '#FF5252',
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 10px 20px rgba(255, 107, 107, 0.3)',
+                          transition: 'all 0.3s ease'
+                        }
+                      }}
+                    >
+                      Explore All Tours
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="large"
+                      onClick={() => navigate('/contact')}
+                      sx={{ 
+                        px: { xs: 3, sm: 4 }, 
+                        py: { xs: 1, sm: 1.5 },
+                        fontSize: { xs: '0.9rem', sm: '1rem' },
+                        borderColor: 'white',
+                        color: 'white',
+                        borderRadius: '50px',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255,255,255,0.1)',
+                          borderColor: 'white',
+                          transform: 'translateY(-3px)',
+                          transition: 'all 0.3s ease'
+                        }
+                      }}
+                    >
+                      Get Free Quote
+                    </Button>
+                  </Box>
                 </Box>
               </Container>
             </Box>
@@ -257,12 +335,17 @@ const Home = () => {
           onClick={prevSlide}
           sx={{
             position: 'absolute',
-            left: 20,
+            left: { xs: 10, sm: 20 },
             top: '50%',
             transform: 'translateY(-50%)',
             backgroundColor: 'rgba(255,255,255,0.2)',
             color: 'white',
-            '&:hover': { backgroundColor: 'rgba(255,255,255,0.3)' }
+            display: { xs: 'none', sm: 'flex' },
+            '&:hover': { 
+              backgroundColor: 'rgba(255,255,255,0.3)',
+              transform: 'translateY(-50%) scale(1.1)',
+              transition: 'all 0.3s ease'
+            }
           }}
         >
           <West />
@@ -271,12 +354,17 @@ const Home = () => {
           onClick={nextSlide}
           sx={{
             position: 'absolute',
-            right: 20,
+            right: { xs: 10, sm: 20 },
             top: '50%',
             transform: 'translateY(-50%)',
             backgroundColor: 'rgba(255,255,255,0.2)',
             color: 'white',
-            '&:hover': { backgroundColor: 'rgba(255,255,255,0.3)' }
+            display: { xs: 'none', sm: 'flex' },
+            '&:hover': { 
+              backgroundColor: 'rgba(255,255,255,0.3)',
+              transform: 'translateY(-50%) scale(1.1)',
+              transition: 'all 0.3s ease'
+            }
           }}
         >
           <East />
@@ -285,7 +373,7 @@ const Home = () => {
         {/* Slider Dots */}
         <Box sx={{ 
           position: 'absolute', 
-          bottom: 30, 
+          bottom: { xs: 20, sm: 30 }, 
           left: '50%', 
           transform: 'translateX(-50%)',
           display: 'flex',
@@ -296,14 +384,15 @@ const Home = () => {
               key={index}
               onClick={() => setCurrentSlide(index)}
               sx={{
-                width: 12,
-                height: 12,
+                width: { xs: 8, sm: 12 },
+                height: { xs: 8, sm: 12 },
                 borderRadius: '50%',
                 backgroundColor: currentSlide === index ? '#FF6B6B' : 'rgba(255,255,255,0.5)',
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 '&:hover': {
                   backgroundColor: currentSlide === index ? '#FF6B6B' : 'rgba(255,255,255,0.8)',
+                  transform: 'scale(1.2)'
                 }
               }}
             />
@@ -311,388 +400,512 @@ const Home = () => {
         </Box>
       </Box>
 
-      {/* Mini Offers Slider */}
-      <Container sx={{ py: 4 }}>
-        <Box sx={{ 
-          backgroundColor: '#FFF3E0',
-          borderRadius: 2,
-          p: 3,
-          mb: 6,
-          border: '2px dashed #FFB74D'
-        }}>
-          <Typography variant="h5" sx={{ mb: 2, color: '#E65100', fontWeight: 600 }}>
-            🎯 Current Offers
-          </Typography>
-          <Box sx={{ 
-            display: 'flex',
-            overflow: 'hidden',
-            position: 'relative',
-            '&:before, &:after': {
-              content: '""',
-              position: 'absolute',
-              top: 0,
-              bottom: 0,
-              width: 50,
-              zIndex: 1,
-              background: 'linear-gradient(90deg, #FFF3E0, transparent)'
-            },
-            '&:after': {
-              right: 0,
-              background: 'linear-gradient(270deg, #FFF3E0, transparent)'
-            }
-          }}>
-            <Box sx={{ 
-              display: 'flex',
-              animation: `${slideAnimation} 20s linear infinite`,
-              '&:hover': {
-                animationPlayState: 'paused'
-              }
-            }}>
-              {[
-                '🏔️ Himalayan Treks Starting Soon',
-                '🕌 Special Group Discounts for Religious Tours',
-                '🏖️ Early Bird Offers for Beach Destinations',
-                '🎫 Flexible Booking Options Available',
-                '👨‍👩‍👧‍👦 Family Package Discounts',
-                '📅 Last Minute Booking Offers'
-              ].map((offer, index) => (
-                <Chip
-                  key={index}
-                  label={offer}
-                  sx={{
-                    mx: 1,
-                    backgroundColor: '#FFE0B2',
-                    color: '#BF360C',
-                    fontWeight: 500,
-                    fontSize: '0.9rem',
-                    height: 40,
-                    animation: `${floatAnimation} 3s ease-in-out infinite ${index * 0.5}s`
-                  }}
-                />
-              ))}
-            </Box>
-          </Box>
-        </Box>
-      </Container>
-
-      {/* Categories */}
-      <Container sx={{ py: 8 }}>
-        <Typography 
-          variant="h2" 
-          sx={{ 
-            textAlign: 'center', 
-            mb: 6, 
-            fontSize: { xs: '2rem', md: '2.5rem' },
-            fontWeight: 700,
-            color: '#1A237E'
-          }}
-        >
-          Explore by Category
-        </Typography>
-        
-        <Grid container spacing={3}>
-          {categories.map((category, index) => (
-            <Grid item xs={6} sm={4} md={2} key={index}>
-              <Grow in timeout={800 + index * 100}>
-                <Card 
-                  sx={{ 
-                    textAlign: 'center',
-                    p: 2,
-                    height: '100%',
-                    cursor: 'pointer',
-                    border: '1px solid #E3F2FD',
-                    backgroundColor: '#F5F5F5',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: '0 10px 20px rgba(0,0,0,0.1)',
-                      backgroundColor: '#E3F2FD',
-                      borderColor: '#90CAF9'
-                    }
-                  }}
-                  onClick={() => navigate(`/${category.title.toLowerCase().replace(' ', '-')}`)}
-                >
-                  <Box sx={{ 
-                    color: '#1A237E',
-                    fontSize: '2.5rem',
+      {/* Stats Section */}
+      <Container sx={{ py: { xs: 4, sm: 6, md: 8 } }}>
+        <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: 6 }}>
+          {stats.map((stat, index) => (
+            <Grid item xs={6} sm={3} key={index}>
+              <Grow in timeout={800 + index * 200}>
+                <Box sx={{ 
+                  textAlign: 'center',
+                  p: { xs: 2, sm: 3 },
+                  backgroundColor: '#f8f9fa',
+                  borderRadius: 2,
+                  border: '1px solid #e9ecef',
+                  height: '100%',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                    backgroundColor: 'white',
+                    borderColor: '#FF8E53'
+                  }
+                }}>
+                  <Typography variant="h3" sx={{ 
+                    fontWeight: 'bold',
                     mb: 1,
-                    animation: `${floatAnimation} 3s ease-in-out infinite ${index * 0.2}s`
+                    color: '#1e3799',
+                    fontSize: { xs: '1.8rem', sm: '2.5rem' }
                   }}>
-                    {category.icon}
-                  </Box>
-                  <Typography variant="h6" sx={{ mb: 0.5, fontWeight: 600, color: '#0D47A1' }}>
-                    {category.title}
+                    {stat.value}
                   </Typography>
-                  <Typography variant="caption" sx={{ color: '#546E7A' }}>
-                    {category.count}
+                  <Typography variant="body1" sx={{ 
+                    color: '#666',
+                    fontWeight: 500,
+                    fontSize: { xs: '0.9rem', sm: '1rem' }
+                  }}>
+                    {stat.label}
                   </Typography>
-                </Card>
+                </Box>
               </Grow>
             </Grid>
           ))}
         </Grid>
-      </Container>
 
-      {/* Featured Tours */}
-      <Box sx={{ backgroundColor: '#F5F5F5', py: 8 }}>
-        <Container maxWidth="xl">
+        {/* Features */}
+        <Box sx={{ mb: { xs: 4, sm: 6, md: 8 } }}>
           <Typography 
             variant="h2" 
             sx={{ 
               textAlign: 'center', 
-              mb: 6, 
-              fontSize: { xs: '2rem', md: '2.5rem' },
+              mb: { xs: 3, sm: 4, md: 5 }, 
+              fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
               fontWeight: 700,
-              color: '#1A237E'
+              color: '#1e3799'
             }}
           >
-            Popular Destinations
+            Why Choose TripWale.in?
           </Typography>
           
-          <Grid container spacing={3}>
-            {featuredTours.map((tour, index) => (
-              <Grid item xs={12} sm={6} md={4} key={tour.id}>
-                <Zoom in timeout={1000 + index * 200}>
+          <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+            {features.map((feature, index) => (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <Grow in timeout={1000 + index * 200}>
                   <Card sx={{ 
-                    height: '100%', 
-                    display: 'flex', 
-                    flexDirection: 'column',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    border: '1px solid #E0E0E0',
-                    backgroundColor: 'white',
+                    textAlign: 'center',
+                    p: { xs: 2, sm: 3 },
+                    height: '100%',
+                    border: '1px solid #e9ecef',
+                    backgroundColor: '#ffffff',
                     transition: 'all 0.3s ease',
                     '&:hover': {
                       transform: 'translateY(-5px)',
-                      boxShadow: '0 15px 30px rgba(0,0,0,0.15)',
-                      '& .tour-image': {
-                        transform: 'scale(1.05)',
-                      }
+                      boxShadow: '0 15px 30px rgba(255, 142, 83, 0.15)',
+                      borderColor: '#FF8E53',
                     }
                   }}>
-                    {/* Tag */}
-                    {tour.tag && (
-                      <Chip
-                        label={tour.tag}
-                        size="small"
-                        sx={{
-                          position: 'absolute',
-                          top: 10,
-                          right: 10,
-                          backgroundColor: '#FF6B6B',
-                          color: 'white',
-                          fontWeight: 600,
-                          zIndex: 1
-                        }}
-                      />
-                    )}
-
-                    <CardMedia
-                      className="tour-image"
-                      component="img"
-                      height="200"
-                      image={tour.image}
-                      alt={tour.title}
-                      sx={{ transition: 'transform 0.5s ease' }}
-                    />
-                    
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                        <Box sx={{ 
-                          color: '#1A237E',
-                          mr: 2,
-                          animation: `${floatAnimation} 3s ease-in-out infinite ${index * 0.2}s`
-                        }}>
-                          {tour.icon}
-                        </Box>
-                        <Typography gutterBottom variant="h5" component="h2" sx={{ 
-                          fontWeight: 700,
-                          color: '#1A237E',
-                          fontSize: '1.3rem'
-                        }}>
-                          {tour.title}
-                        </Typography>
-                      </Box>
-                      
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
-                        <LocationOn fontSize="small" sx={{ mr: 1, color: '#546E7A' }} />
-                        <Typography variant="body2" color="text.secondary">
-                          {tour.location}
-                        </Typography>
-                      </Box>
-                      
-                      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          <CalendarToday fontSize="small" sx={{ mr: 1, color: '#546E7A' }} />
-                          <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                            {tour.duration}
-                          </Typography>
-                        </Box>
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                          <Star fontSize="small" sx={{ color: '#FFB300', mr: 0.5 }} />
-                          <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                            {tour.rating}
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </CardContent>
-                    
-                    <CardActions sx={{ p: 3, pt: 0 }}>
-                      <Button 
-                        fullWidth 
-                        variant="contained"
-                        onClick={() => navigate(`/${tour.category}`)}
-                        sx={{ 
-                          backgroundColor: '#1A237E',
-                          '&:hover': {
-                            backgroundColor: '#283593',
-                            transform: 'translateY(-2px)',
-                            boxShadow: '0 5px 15px rgba(26, 35, 126, 0.3)'
-                          },
-                          transition: 'all 0.3s ease'
-                        }}
-                      >
-                        View Package Details
-                      </Button>
-                    </CardActions>
+                    <Box sx={{ 
+                      color: '#FF8E53',
+                      fontSize: { xs: '2.5rem', sm: '3rem' },
+                      mb: 2,
+                      display: 'flex',
+                      justifyContent: 'center',
+                      animation: `${floatAnimation} 3s ease-in-out infinite ${index * 0.2}s`
+                    }}>
+                      {feature.icon}
+                    </Box>
+                    <Typography variant="h6" sx={{ 
+                      mb: 1, 
+                      fontWeight: 700,
+                      color: '#1e3799',
+                      fontSize: { xs: '1.1rem', sm: '1.2rem' }
+                    }}>
+                      {feature.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ 
+                      color: '#666',
+                      fontSize: { xs: '0.85rem', sm: '0.9rem' }
+                    }}>
+                      {feature.desc}
+                    </Typography>
                   </Card>
-                </Zoom>
+                </Grow>
               </Grid>
             ))}
           </Grid>
+        </Box>
+      </Container>
 
-          {/* View All Button */}
-          <Box sx={{ textAlign: 'center', mt: 6 }}>
-            <Button
-              variant="outlined"
-              size="large"
-              onClick={() => navigate('/domestic-tours')}
-              endIcon={<ArrowForward />}
-              sx={{ 
-                px: 6,
-                borderColor: '#1A237E',
-                color: '#1A237E',
-                fontWeight: 600,
-                '&:hover': {
-                  borderColor: '#283593',
-                  backgroundColor: 'rgba(26, 35, 126, 0.04)',
-                  transform: 'translateY(-2px)',
-                  transition: 'all 0.3s ease'
-                }
-              }}
-            >
-              View All Destinations
-            </Button>
-          </Box>
+      {/* Categories */}
+      <Box sx={{ backgroundColor: '#f8f9fa', py: { xs: 4, sm: 6, md: 8 } }}>
+        <Container>
+          <Typography 
+            variant="h2" 
+            sx={{ 
+              textAlign: 'center', 
+              mb: { xs: 3, sm: 4, md: 5 }, 
+              fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+              fontWeight: 700,
+              color: '#1e3799'
+            }}
+          >
+            Travel By Category
+          </Typography>
+          
+          <Grid container spacing={{ xs: 2, sm: 3 }}>
+            {categories.map((category, index) => (
+              <Grid item xs={6} sm={4} md={3} key={index}>
+                <Grow in timeout={800 + index * 100}>
+                  <Card 
+                    sx={{ 
+                      textAlign: 'center',
+                      p: { xs: 1.5, sm: 2.5 },
+                      height: '100%',
+                      cursor: 'pointer',
+                      border: '1px solid #e9ecef',
+                      backgroundColor: 'white',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 15px 30px rgba(0,0,0,0.1)',
+                        backgroundColor: '#fff9f5',
+                        borderColor: '#FF8E53',
+                      }
+                    }}
+                    onClick={() => navigate(`/${category.title.toLowerCase().replace(' ', '-')}`)}
+                  >
+                    <Box sx={{ 
+                      color: '#1e3799',
+                      fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                      mb: { xs: 1, sm: 2 },
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}>
+                      {category.icon}
+                    </Box>
+                    <Typography variant="h6" sx={{ 
+                      mb: 0.5, 
+                      fontWeight: 700, 
+                      color: '#1e3799',
+                      fontSize: { xs: '1rem', sm: '1.1rem' }
+                    }}>
+                      {category.title}
+                    </Typography>
+                    <Typography variant="caption" sx={{ 
+                      color: '#666',
+                      fontSize: { xs: '0.8rem', sm: '0.85rem' }
+                    }}>
+                      {category.desc}
+                    </Typography>
+                  </Card>
+                </Grow>
+              </Grid>
+            ))}
+          </Grid>
         </Container>
       </Box>
 
-      {/* Trusted Affiliations */}
-      <Container sx={{ py: 8 }}>
-        <Typography 
-          variant="h2" 
-          sx={{ 
-            textAlign: 'center', 
-            mb: 6, 
-            fontSize: { xs: '2rem', md: '2.5rem' },
-            fontWeight: 700,
-            color: '#1A237E'
-          }}
-        >
-          Trusted Affiliations
-        </Typography>
+      {/* Featured Tours */}
+      <Container sx={{ py: { xs: 4, sm: 6, md: 8 } }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', sm: 'row' },
+          justifyContent: 'space-between',
+          alignItems: { xs: 'flex-start', sm: 'center' },
+          mb: { xs: 3, sm: 4, md: 5 },
+          gap: { xs: 2, sm: 0 }
+        }}>
+          <Box>
+            <Typography 
+              variant="h2" 
+              sx={{ 
+                fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+                fontWeight: 700,
+                color: '#1e3799',
+                mb: 1
+              }}
+            >
+              Popular Tour Packages
+            </Typography>
+            <Typography 
+              variant="h6" 
+              sx={{ 
+                color: '#666',
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                fontWeight: 400
+              }}
+            >
+              Handpicked experiences for unforgettable journeys
+            </Typography>
+          </Box>
+          <Button
+            variant="outlined"
+            size="medium"
+            onClick={() => navigate('/domestic-tours')}
+            endIcon={<ArrowForward />}
+            sx={{ 
+              borderColor: '#1e3799',
+              color: '#1e3799',
+              fontWeight: 600,
+              borderRadius: '50px',
+              px: { xs: 3, sm: 4 },
+              '&:hover': {
+                borderColor: '#0c2461',
+                backgroundColor: 'rgba(30, 55, 153, 0.04)',
+                transform: 'translateY(-2px)',
+                transition: 'all 0.3s ease'
+              }
+            }}
+          >
+            View All Tours
+          </Button>
+        </Box>
         
-        <Grid container spacing={4} alignItems="center" justifyContent="center">
-          {affiliations.map((partner, index) => (
-            <Grid item xs={6} sm={4} md={2.4} key={index}>
-              <Fade in timeout={1000 + index * 200}>
-                <Paper
-                  elevation={0}
-                  sx={{
-                    p: 2,
-                    height: 100,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: 'transparent',
-                    border: '1px solid #E0E0E0',
-                    borderRadius: 2,
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-3px)',
-                      boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
-                      borderColor: '#90CAF9'
+        <Grid container spacing={{ xs: 2, sm: 3 }}>
+          {featuredTours.map((tour, index) => (
+            <Grid item xs={12} sm={6} md={4} lg={3} key={tour.id}>
+              <Zoom in timeout={1000 + index * 150}>
+                <Card sx={{ 
+                  height: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  border: '1px solid #e9ecef',
+                  backgroundColor: 'white',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                    '& .tour-image': {
+                      transform: 'scale(1.1)',
                     }
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={partner.logo}
-                    alt={partner.name}
-                    sx={{ 
-                      maxWidth: '100%',
-                      maxHeight: 60,
-                      filter: 'grayscale(100%)',
-                      transition: 'filter 0.3s ease',
-                      '&:hover': {
-                        filter: 'grayscale(0%)'
-                      }
-                    }}
-                  />
-                </Paper>
-              </Fade>
+                  }
+                }}>
+                  {/* Tag */}
+                  {tour.tag && (
+                    <Chip
+                      label={tour.tag}
+                      size="small"
+                      sx={{
+                        position: 'absolute',
+                        top: 10,
+                        right: 10,
+                        backgroundColor: '#FF6B6B',
+                        color: 'white',
+                        fontWeight: 600,
+                        zIndex: 1,
+                        fontSize: { xs: '0.7rem', sm: '0.75rem' }
+                      }}
+                    />
+                  )}
+
+                  <Box sx={{ overflow: 'hidden' }}>
+                    <CardMedia
+                      className="tour-image"
+                      component="img"
+                      height="180"
+                      image={tour.image}
+                      alt={tour.title}
+                      sx={{ 
+                        transition: 'transform 0.5s ease',
+                        width: '100%',
+                        objectFit: 'cover'
+                      }}
+                    />
+                  </Box>
+                  
+                  <CardContent sx={{ flexGrow: 1, p: { xs: 2, sm: 2.5 } }}>
+                    <Typography gutterBottom variant="h6" component="h2" sx={{ 
+                      fontWeight: 700,
+                      color: '#1e3799',
+                      fontSize: { xs: '1rem', sm: '1.1rem' },
+                      mb: 1,
+                      lineHeight: 1.3
+                    }}>
+                      {tour.title}
+                    </Typography>
+                    
+                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                      <LocationOn fontSize="small" sx={{ mr: 1, color: '#666', flexShrink: 0 }} />
+                      <Typography variant="body2" color="text.secondary" sx={{ 
+                        fontSize: { xs: '0.8rem', sm: '0.85rem' },
+                        lineHeight: 1.4
+                      }}>
+                        {tour.location}
+                      </Typography>
+                    </Box>
+                    
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1.5 }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <CalendarToday fontSize="small" sx={{ mr: 1, color: '#666' }} />
+                        <Typography variant="body2" sx={{ 
+                          fontWeight: 500,
+                          fontSize: { xs: '0.8rem', sm: '0.85rem' }
+                        }}>
+                          {tour.duration}
+                        </Typography>
+                      </Box>
+                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Star fontSize="small" sx={{ color: '#FFB300', mr: 0.5 }} />
+                        <Typography variant="body2" sx={{ 
+                          fontWeight: 600,
+                          fontSize: { xs: '0.8rem', sm: '0.85rem' }
+                        }}>
+                          {tour.rating}
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    <Box sx={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'space-between',
+                      mt: 2,
+                      pt: 2,
+                      borderTop: '1px dashed #e0e0e0'
+                    }}>
+                      <Typography variant="h6" sx={{ 
+                        color: '#FF6B6B',
+                        fontWeight: 700,
+                        fontSize: { xs: '1rem', sm: '1.1rem' }
+                      }}>
+                        {tour.price}
+                      </Typography>
+                      <Typography variant="caption" sx={{ 
+                        color: '#666',
+                        fontSize: { xs: '0.75rem', sm: '0.8rem' }
+                      }}>
+                        per person
+                      </Typography>
+                    </Box>
+                  </CardContent>
+                  
+                  <CardActions sx={{ p: { xs: 2, sm: 2.5 }, pt: 0 }}>
+                    <Button 
+                      fullWidth 
+                      variant="contained"
+                      onClick={() => navigate(`/tour/${tour.id}`)}
+                      size="small"
+                      sx={{ 
+                        backgroundColor: '#1e3799',
+                        borderRadius: '50px',
+                        py: 1,
+                        fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                        '&:hover': {
+                          backgroundColor: '#0c2461',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 20px rgba(30, 55, 153, 0.3)'
+                        },
+                        transition: 'all 0.3s ease'
+                      }}
+                    >
+                      View Details
+                    </Button>
+                  </CardActions>
+                </Card>
+              </Zoom>
             </Grid>
           ))}
         </Grid>
       </Container>
 
+      {/* Special Offers Banner */}
+      <Container sx={{ pb: { xs: 4, sm: 6, md: 8 } }}>
+        <Paper
+          elevation={0}
+          sx={{
+            background: 'linear-gradient(135deg, #FF8E53 0%, #FF6B6B 100%)',
+            color: 'white',
+            p: { xs: 3, sm: 4, md: 5 },
+            borderRadius: 2,
+            textAlign: 'center',
+            position: 'relative',
+            overflow: 'hidden'
+          }}
+        >
+          <Typography variant="h3" sx={{ 
+            mb: 2, 
+            fontWeight: 800,
+            fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' }
+          }}>
+            🎉 Special Summer Offers
+          </Typography>
+          <Typography variant="h6" sx={{ 
+            mb: 3, 
+            opacity: 0.9,
+            fontSize: { xs: '1rem', sm: '1.2rem' },
+            maxWidth: 600,
+            mx: 'auto'
+          }}>
+            Get up to 30% off on selected tour packages. Limited period offer!
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => navigate('/offers')}
+            sx={{ 
+              px: { xs: 4, sm: 5 },
+              py: { xs: 1, sm: 1.5 },
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              backgroundColor: 'white',
+              color: '#FF6B6B',
+              borderRadius: '50px',
+              fontWeight: 700,
+              '&:hover': {
+                backgroundColor: '#f5f5f5',
+                transform: 'translateY(-3px)',
+                boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+                transition: 'all 0.3s ease'
+              }
+            }}
+          >
+            Check Offers
+          </Button>
+        </Paper>
+      </Container>
+
       {/* Final CTA */}
       <Box sx={{ 
-        background: 'linear-gradient(135deg, #1A237E 0%, #283593 100%)',
+        background: 'linear-gradient(135deg, #1e3799 0%, #0c2461 100%)',
         color: 'white',
-        py: 8
+        py: { xs: 6, sm: 8, md: 10 }
       }}>
         <Container sx={{ textAlign: 'center' }}>
-          <Typography variant="h3" sx={{ mb: 3, fontWeight: 700 }}>
-            Ready to Explore Incredible India?
+          <Typography variant="h3" sx={{ 
+            mb: 3, 
+            fontWeight: 800,
+            fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' }
+          }}>
+            Ready for Your Next Adventure?
           </Typography>
-          <Typography variant="h6" sx={{ mb: 4, opacity: 0.9, maxWidth: 600, mx: 'auto' }}>
-            Let us help you plan your perfect journey across India's diverse landscapes and cultures.
+          <Typography variant="h6" sx={{ 
+            mb: { xs: 4, sm: 5 }, 
+            opacity: 0.9,
+            fontSize: { xs: '1rem', sm: '1.2rem' },
+            maxWidth: 600,
+            mx: 'auto',
+            lineHeight: 1.6
+          }}>
+            Contact our travel experts to plan your perfect holiday package with customized itineraries.
           </Typography>
-          <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Box sx={{ 
+            display: 'flex', 
+            gap: { xs: 2, sm: 3 }, 
+            justifyContent: 'center', 
+            flexWrap: 'wrap' 
+          }}>
             <Button
               variant="contained"
               size="large"
               onClick={() => navigate('/contact')}
+              startIcon={<Phone />}
               sx={{ 
-                px: 4,
+                px: { xs: 3, sm: 4 },
+                py: { xs: 1, sm: 1.5 },
+                fontSize: { xs: '0.9rem', sm: '1rem' },
                 backgroundColor: '#FF6B6B',
+                borderRadius: '50px',
                 '&:hover': {
                   backgroundColor: '#FF5252',
-                  transform: 'translateY(-2px)',
+                  transform: 'translateY(-3px)',
+                  boxShadow: '0 10px 25px rgba(255, 107, 107, 0.3)',
                   transition: 'all 0.3s ease'
                 }
               }}
             >
-              Get Free Consultation
+              Call Now: 6266203629
             </Button>
             <Button
               variant="outlined"
               size="large"
               onClick={() => navigate('/domestic-tours')}
               sx={{ 
-                px: 4,
+                px: { xs: 3, sm: 4 },
+                py: { xs: 1, sm: 1.5 },
+                fontSize: { xs: '0.9rem', sm: '1rem' },
                 borderColor: 'white',
                 color: 'white',
+                borderRadius: '50px',
                 '&:hover': {
                   borderColor: 'white',
                   backgroundColor: 'rgba(255,255,255,0.1)',
-                  transform: 'translateY(-2px)',
+                  transform: 'translateY(-3px)',
                   transition: 'all 0.3s ease'
                 }
               }}
             >
-              Browse All Tours
+              Browse All Packages
             </Button>
           </Box>
         </Container>
