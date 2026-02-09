@@ -14,7 +14,6 @@ import {
   ToggleButtonGroup,
   useMediaQuery,
   useTheme,
-  Skeleton,
 } from '@mui/material'
 import {
   LocationOn,
@@ -22,9 +21,9 @@ import {
   DirectionsCar,
   LocalOffer,
   WhatsApp,
-  Groups,
+  Group,
   Restaurant,
-  Guide,
+  Tour,
 } from '@mui/icons-material'
 
 const OneDayTrips = () => {
@@ -577,7 +576,7 @@ const OneDayTrips = () => {
               desc: 'AC vehicles with experienced drivers' 
             },
             { 
-              icon: <Guide fontSize={isMobile ? "medium" : "large"} />, 
+              icon: <Tour fontSize={isMobile ? "medium" : "large"} />, 
               title: 'Expert Guides', 
               desc: 'Knowledgeable local guides' 
             },
@@ -587,7 +586,7 @@ const OneDayTrips = () => {
               desc: 'Delicious breakfast/snacks' 
             },
             { 
-              icon: <Groups fontSize={isMobile ? "medium" : "large"} />, 
+              icon: <Group fontSize={isMobile ? "medium" : "large"} />, 
               title: 'Group Discounts', 
               desc: 'Special rates for groups & families' 
             },
