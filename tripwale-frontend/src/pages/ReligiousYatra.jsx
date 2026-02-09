@@ -17,11 +17,8 @@ import {
   CalendarToday,
   Hotel,
 } from '@mui/icons-material'
-import { useNavigate } from 'react-router-dom'
 
 const ReligiousYatra = () => {
-  const navigate = useNavigate()
-
   const yatraTours = [
     {
       id: 1,
@@ -89,7 +86,91 @@ const ReligiousYatra = () => {
       image: 'https://images.unsplash.com/photo-1603228254119-e6a4d2d2b3e3',
       bestTime: 'May-Oct'
     },
+    {
+      id: 7,
+      title: 'Khatu Shyam JI',
+      description: 'Pilgrimage to Khatu Shyam Ji Temple',
+      location: 'Khatu, Rajasthan',
+      duration: '3 Days',
+      price: '₹8,999',
+      difficulty: 'Easy',
+      image: 'https://images.unsplash.com/photo-1589552950456-75eeaf7c1c8d',
+      bestTime: 'Year Round'
+    },
+    {
+      id: 8,
+      title: 'Mathura-Vrindavan',
+      description: 'Sacred journey to Lord Krishna\'s birthplace',
+      location: 'Mathura, Vrindavan, Uttar Pradesh',
+      duration: '4 Days',
+      price: '₹11,999',
+      difficulty: 'Easy',
+      image: 'https://images.unsplash.com/photo-1589552950456-75eeaf7c1c8d',
+      bestTime: 'Oct-Mar'
+    },
+    {
+      id: 9,
+      title: 'Ayodhya Dham',
+      description: 'Pilgrimage to Lord Rama\'s birthplace',
+      location: 'Ayodhya, Uttar Pradesh',
+      duration: '3 Days',
+      price: '₹9,999',
+      difficulty: 'Easy',
+      image: 'https://images.unsplash.com/photo-1589552950456-75eeaf7c1c8d',
+      bestTime: 'Oct-Mar'
+    },
+    {
+      id: 10,
+      title: 'Purushottam Dham',
+      description: 'Pilgrimage to Jagannath Temple',
+      location: 'Puri, Odisha',
+      duration: '5 Days',
+      price: '₹15,999',
+      difficulty: 'Easy',
+      image: 'https://images.unsplash.com/photo-1589552950456-75eeaf7c1c8d',
+      bestTime: 'Oct-Mar'
+    },
+    {
+      id: 11,
+      title: 'Somnath-Dwarka',
+      description: 'Sacred Jyotirlinga pilgrimage',
+      location: 'Somnath, Dwarka, Gujarat',
+      duration: '6 Days',
+      price: '₹21,999',
+      difficulty: 'Easy',
+      image: 'https://images.unsplash.com/photo-1589552950456-75eeaf7c1c8d',
+      bestTime: 'Oct-Mar'
+    },
+    {
+      id: 12,
+      title: 'Banaaras (Varanasi)',
+      description: 'Spiritual journey to the holy city',
+      location: 'Varanasi, Uttar Pradesh',
+      duration: '4 Days',
+      price: '₹14,999',
+      difficulty: 'Easy',
+      image: 'https://images.unsplash.com/photo-1589552950456-75eeaf7c1c8d',
+      bestTime: 'Oct-Mar'
+    },
   ]
+
+  const handleBookYatra = (tourTitle, tourDuration, tourPrice) => {
+    const phoneNumber = '916266203629'
+    const message = `Hi, I'm interested in booking the "${tourTitle}" yatra package (${tourDuration}, ${tourPrice}). Please provide me with more information about this religious tour.`
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+    
+    window.open(whatsappURL, '_blank')
+  }
+
+  const handleContactForCustomYatra = () => {
+    const phoneNumber = '916266203629'
+    const message = "Hi, I'm looking for a custom religious yatra package. Can you help me with more information?"
+    const encodedMessage = encodeURIComponent(message)
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+    
+    window.open(whatsappURL, '_blank')
+  }
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
@@ -104,55 +185,66 @@ const ReligiousYatra = () => {
 
       <Grid container spacing={4}>
         {yatraTours.map((tour) => (
-          <Grid item xs={12} sm={6} md={4} key={tour.id}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={tour.id}>
             <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
               <CardMedia
                 component="img"
-                height="200"
+                height="180"
                 image={tour.image}
                 alt={tour.title}
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Typography gutterBottom variant="h6" component="h2">
                   {tour.title}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  {tour.description}
-                </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                  <LocationOn fontSize="small" sx={{ mr: 0.5, color: 'text.secondary' }} />
-                  <Typography variant="body2" color="text.secondary">
-                    {tour.location}
+                {tour.description && (
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: '0.875rem' }}>
+                    {tour.description}
                   </Typography>
-                </Box>
+                )}
+                {tour.location && (
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                    <LocationOn fontSize="small" sx={{ mr: 0.5, color: 'text.secondary' }} />
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.875rem' }}>
+                      {tour.location}
+                    </Typography>
+                  </Box>
+                )}
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CalendarToday fontSize="small" sx={{ mr: 0.5, color: 'text.secondary' }} />
-                    <Typography variant="body2">{tour.duration}</Typography>
+                    <Typography variant="body2" sx={{ fontSize: '0.875rem' }}>{tour.duration}</Typography>
                   </Box>
-                  <Chip 
-                    label={tour.difficulty} 
-                    size="small" 
-                    color={
-                      tour.difficulty === 'Easy' ? 'success' : 
-                      tour.difficulty === 'Moderate' ? 'warning' : 'error'
-                    }
-                  />
+                  {tour.difficulty && (
+                    <Chip 
+                      label={tour.difficulty} 
+                      size="small" 
+                      color={
+                        tour.difficulty === 'Easy' ? 'success' : 
+                        tour.difficulty === 'Moderate' ? 'warning' : 'error'
+                      }
+                    />
+                  )}
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                  <Typography variant="body2">
-                    <strong>Best Time:</strong> {tour.bestTime}
+                {tour.bestTime && (
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                    <Typography variant="body2" sx={{ fontSize: '0.875rem' }}>
+                      <strong>Best Time:</strong> {tour.bestTime}
+                    </Typography>
+                  </Box>
+                )}
+                {tour.price && (
+                  <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+                    {tour.price}
                   </Typography>
-                </Box>
-                <Typography variant="h5" color="primary" sx={{ fontWeight: 'bold' }}>
-                  {tour.price}
-                </Typography>
+                )}
               </CardContent>
               <CardActions>
                 <Button 
                   fullWidth 
                   variant="contained"
-                  onClick={() => navigate(`/tour/${tour.id}`)}
+                  onClick={() => handleBookYatra(tour.title, tour.duration, tour.price || 'Price on request')}
+                  size="small"
                 >
                   Book Yatra
                 </Button>
@@ -170,28 +262,41 @@ const ReligiousYatra = () => {
           <Grid item xs={6} md={3}>
             <Box sx={{ textAlign: 'center' }}>
               <Hotel sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
-              <Typography>Accommodation</Typography>
+              <Typography variant="body2">Accommodation</Typography>
             </Box>
           </Grid>
           <Grid item xs={6} md={3}>
             <Box sx={{ textAlign: 'center' }}>
               <TempleHindu sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
-              <Typography>Pooja Arrangements</Typography>
+              <Typography variant="body2">Pooja Arrangements</Typography>
             </Box>
           </Grid>
           <Grid item xs={6} md={3}>
             <Box sx={{ textAlign: 'center' }}>
               <Typography sx={{ fontSize: 40, color: 'primary.main', mb: 1 }}>🍛</Typography>
-              <Typography>Satvik Food</Typography>
+              <Typography variant="body2">Satvik Food</Typography>
             </Box>
           </Grid>
           <Grid item xs={6} md={3}>
             <Box sx={{ textAlign: 'center' }}>
               <Typography sx={{ fontSize: 40, color: 'primary.main', mb: 1 }}>🚌</Typography>
-              <Typography>Transport</Typography>
+              <Typography variant="body2">Transport</Typography>
             </Box>
           </Grid>
         </Grid>
+      </Box>
+
+      <Box sx={{ textAlign: 'center', mt: 6 }}>
+        <Typography variant="body1" sx={{ mb: 3 }}>
+          Looking for a custom religious tour? Contact us for personalized yatra packages
+        </Typography>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={handleContactForCustomYatra}
+        >
+          Contact for Custom Yatra
+        </Button>
       </Box>
     </Container>
   )

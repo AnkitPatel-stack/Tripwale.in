@@ -38,7 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout><Home /></MainLayout>} />
           <Route path="/domestic-tours" element={<MainLayout><DomesticTours /></MainLayout>} />
-          {/* <Route path="/international-tours" element={<MainLayout><div>International Tours Page</div></MainLayout>} /> */}
+          <Route path="/international-tours" element={<MainLayout><div>International Tours Page</div></MainLayout>} />
         </Routes>
       </Router>
     </ThemeProvider>

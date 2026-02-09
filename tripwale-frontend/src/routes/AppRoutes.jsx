@@ -7,6 +7,7 @@ import ReligiousYatra from '../pages/ReligiousYatra'
 import Trekking from '../pages/Trekking'
 import AboutUs from '../pages/AboutUs'
 import ContactUs from '../pages/ContactUs'
+import OneDayTrips from '../pages/OneDayTrips'
 
 const AppRoutes = () => {
     return (
@@ -15,8 +16,9 @@ const AppRoutes = () => {
             <Route element={<MainLayout />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/domestic-tours" element={<DomesticTours />} />
-                {/* <Route path="/international-tours" element={<InternationalTours />} /> */}
+                <Route path="/international-tours" element={<InternationalTours />} />
                 <Route path="/religious-yatra" element={<ReligiousYatra />} />
+                <Route path="/one-day-trips" element={<OneDayTrips/>} />
                 <Route path="/trekking" element={<Trekking />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/contact" element={<ContactUs />} />

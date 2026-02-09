@@ -105,9 +105,8 @@ const Footer = () => {
               mb: { xs: 2, sm: 3 }
             }}>
               {[
-                { icon: <Facebook />, tooltip: 'Facebook', color: '#4267B2' },
-                { icon: <Instagram />, tooltip: 'Instagram', color: '#E1306C' },
-                { icon: <Twitter />, tooltip: 'Twitter', color: '#1DA1F2' },
+                { icon: <Facebook />, tooltip: 'Facebook', color: '#4267B2', href: 'https://www.facebook.com/share/1bRyfaDRHp/?mibextid=wwXIfr', target: '_blank' },
+                { icon: <Instagram />, tooltip: 'Instagram', color: '#E1306C', href:'https://www.instagram.com/tripwale.in?igsh=MXZycXRjYzFnNDRjMQ==&utm_source=ig_contact_invite',target: '_blank' },
                 {
                   icon: <WhatsApp />,
                   tooltip: 'WhatsApp',
@@ -200,7 +199,7 @@ const Footer = () => {
               {[
                 { text: 'Home', href: '/' },
                 { text: 'Domestic Tours', href: '/domestic-tours' },
-                // { text: 'International Tours', href: '/international-tours' },
+                { text: 'International Tours', href: '/international-tours' },
                 { text: 'Religious Yatra', href: '/religious-yatra' },
                 { text: 'Trekking & Adventure', href: '/trekking' },
                 { text: 'About Us', href: '/about' },

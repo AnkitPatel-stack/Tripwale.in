@@ -115,7 +115,7 @@ const Navigation = () => {
   const navItems = [
     { icon: <Home />, label: 'Home', path: '/' },
     { icon: <Explore />, label: 'Domestic Tours', path: '/domestic-tours' },
-    // { icon: <Flight />, label: 'International Tours', path: '/international-tours' },
+    { icon: <Flight />, label: 'International Tours', path: '/international-tours' },
     { icon: <TempleHindu />, label: 'Religious Yatra', path: '/religious-yatra' },
     { icon: <Terrain />, label: 'Trekking Tours', path: '/trekking' },
     { icon: <Info />, label: 'About Us', path: '/about' },

@@ -18,7 +18,6 @@ import {
   WhatsApp,
   Send,
 } from '@mui/icons-material'
-import emailjs from '@emailjs/browser'
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -41,45 +40,50 @@ const ContactUs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    
+
     // Simple validation
     if (!formData.name || !formData.email || !formData.phone || !formData.message) {
       setError('Please fill in all required fields')
       return
     }
 
-    // EmailJS configuration
-    const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      phone: formData.phone,
-      subject: formData.subject || 'Contact Form Submission',
-      message: formData.message,
-    }
+    // Format message for WhatsApp
+    const whatsappMessage = `
+*New Contact Form Submission - TripWale.in*
 
-    // Replace with your EmailJS credentials
-    emailjs.send(
-      'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-      'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-      templateParams,
-      'YOUR_PUBLIC_KEY' // Replace with your EmailJS public key
-    )
-    .then((response) => {
-      console.log('SUCCESS!', response.status, response.text)
-      setSubmitted(true)
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      })
-      setError('')
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone}
+*Subject:* ${formData.subject || 'Contact Form Submission'}
+*Message:*
+${formData.message}
+
+_Submitted via TripWale.in Contact Form_
+    `.trim()
+
+    // Encode the message for WhatsApp URL
+    const encodedMessage = encodeURIComponent(whatsappMessage)
+    const phoneNumber = '916266203629'
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`
+
+    // Open WhatsApp with the form data
+    window.open(whatsappURL, '_blank')
+
+    // Reset form and show success message
+    setSubmitted(true)
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      subject: '',
+      message: '',
     })
-    .catch((err) => {
-      console.error('FAILED...', err)
-      setError('Failed to send message. Please try again later.')
-    })
+    setError('')
+
+    // Reset success message after 5 seconds
+    setTimeout(() => {
+      setSubmitted(false)
+    }, 5000)
   }
 
   return (
@@ -100,7 +104,7 @@ const ContactUs = () => {
             <Typography variant="h4" sx={{ mb: 4 }}>
               Contact Information
             </Typography>
-            
+
             <Card sx={{ mb: 3 }}>
               <CardContent>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
@@ -108,6 +112,14 @@ const ContactUs = () => {
                   <Box>
                     <Typography variant="h6">Phone Number</Typography>
                     <Typography variant="body1">+91 6266203629</Typography>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      href="tel:+916266203629"
+                      sx={{ mt: 1 }}
+                    >
+                      Call Now
+                    </Button>
                   </Box>
                 </Box>
               </CardContent>
@@ -120,7 +132,15 @@ const ContactUs = () => {
                   <Box>
                     <Typography variant="h6">Email Address</Typography>
                     <Typography variant="body1">info@tripwale.in</Typography>
-                    <Typography variant="body1">bookings@tripwale.in</Typography>
+                    {/* <Typography variant="body1">bookings@tripwale.in</Typography> */}
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      href="mailto:info@tripwale.in"
+                      sx={{ mt: 1 }}
+                    >
+                      Send Email
+                    </Button>
                   </Box>
                 </Box>
               </CardContent>
@@ -132,9 +152,51 @@ const ContactUs = () => {
                   <LocationOn color="primary" sx={{ mr: 2 }} />
                   <Box>
                     <Typography variant="h6">Office Address</Typography>
-                    <Typography variant="body1">TripWale.in Tour & Travels</Typography>
-                    <Typography variant="body1">Indore, Madhya Pradesh</Typography>
-                    <Typography variant="body1">PAN India & Abroad Operations</Typography>
+                    <Button
+                      component="a"
+                      href="https://maps.google.com/?q=41-42, 1st Floor, PU4 scheme no.54 behind C21 mall Vijay Nagar Indore-452010"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        textAlign: 'left',
+                        textTransform: 'none',
+                        p: 0,
+                        m: 0,
+                        display: 'block',
+                        color: 'inherit',
+                        '&:hover': {
+                          backgroundColor: 'transparent',
+                          textDecoration: 'underline',
+                        }
+                      }}
+                    >
+                      <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                        TripWale.in Tour & Travels
+                      </Typography>
+                      <Typography variant="body1">
+                        41-42, 1st Floor, PU4 scheme no.54
+                      </Typography>
+                      <Typography variant="body1">
+                        Behind C21 Mall, Vijay Nagar
+                      </Typography>
+                      <Typography variant="body1">
+                        Indore, Madhya Pradesh - 452010
+                      </Typography>
+                    </Button>
+                    {/* <Typography variant="body1" sx={{ mt: 1 }}>
+                      PAN India & Abroad Operations
+                    </Typography> */}
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      startIcon={<LocationOn />}
+                      href="https://maps.google.com/?q=41-42, 1st Floor, PU4 scheme no.54 behind C21 mall Vijay Nagar Indore-452010"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{ mt: 1 }}
+                    >
+                      View on Google Maps
+                    </Button>
                   </Box>
                 </Box>
               </CardContent>
@@ -142,7 +204,7 @@ const ContactUs = () => {
 
             <Card>
               <CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <Box sx={{ display: '-flex', alignItems: 'center', mb: 2 }}>
                   <WhatsApp color="success" sx={{ mr: 2 }} />
                   <Box>
                     <Typography variant="h6">WhatsApp</Typography>
@@ -151,7 +213,6 @@ const ContactUs = () => {
                       variant="contained"
                       color="success"
                       startIcon={<WhatsApp />}
-                      component="a"
                       href="https://wa.me/916266203629"
                       target="_blank"
                       sx={{ mt: 1 }}
@@ -162,6 +223,59 @@ const ContactUs = () => {
                 </Box>
               </CardContent>
             </Card>
+
+            {/* Quick Links */}
+            {/* <Card sx={{ mt: 3 }}>
+              <CardContent>
+                <Typography variant="h6" sx={{ mb: 2 }}>
+                  Quick Links
+                </Typography>
+                <Grid container spacing={1}>
+                  <Grid item xs={6}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      href="/domestic-tours"
+                      sx={{ mb: 1 }}
+                    >
+                      Domestic Tours
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      href="/international-tours"
+                      sx={{ mb: 1 }}
+                    >
+                      International Tours
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      href="/honeymoon-packages"
+                    >
+                      Honeymoon Packages
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      href="/group-tours"
+                    >
+                      Group Tours
+                    </Button>
+                  </Grid>
+                </Grid>
+              </CardContent>
+            </Card> */}
           </Box>
         </Grid>
 
@@ -171,10 +285,10 @@ const ContactUs = () => {
             <Typography variant="h4" sx={{ mb: 4 }}>
               Send Us a Message
             </Typography>
-            
+
             {submitted && (
               <Alert severity="success" sx={{ mb: 3 }}>
-                Thank you for your message! We'll get back to you soon.
+                Thank you for your message! You will be redirected to WhatsApp to complete your submission.
               </Alert>
             )}
 
@@ -215,6 +329,8 @@ const ContactUs = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     required
+                    inputProps={{ pattern: '[0-9]{10}' }}
+                    helperText="Enter 10-digit mobile number"
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
@@ -224,7 +340,7 @@ const ContactUs = () => {
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
-                    placeholder="e.g., Booking Enquiry"
+                    placeholder="e.g., Booking Enquiry, Package Query"
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -237,7 +353,7 @@ const ContactUs = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    placeholder="Please include details like preferred destination, travel dates, number of people, etc."
+                    placeholder="Please include details like preferred destination, travel dates, number of people, budget, etc."
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -248,25 +364,29 @@ const ContactUs = () => {
                     startIcon={<Send />}
                     sx={{ px: 4 }}
                   >
-                    Send Message
+                    Send via WhatsApp
                   </Button>
+                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
+                    You will be redirected to WhatsApp to send your message
+                  </Typography>
                 </Grid>
               </Grid>
             </form>
 
-            {/* Additional Info */}
+            {/* Additional Info
             <Box sx={{ mt: 6, p: 3, bgcolor: '#f5f5f5', borderRadius: 2 }}>
               <Typography variant="h6" sx={{ mb: 2 }}>
                 What happens after you contact us?
               </Typography>
               <ol>
-                <li>Our travel expert will call you within 24 hours</li>
+                <li>Our travel expert will contact you within 24 hours</li>
                 <li>We'll understand your requirements and preferences</li>
                 <li>We'll create a customized itinerary for you</li>
-                <li>We'll share the best available prices</li>
-                <li>We'll assist with all bookings and documentation</li>
+                <li>We'll share the best available prices and offers</li>
+                <li>We'll assist with all bookings, visas, and documentation</li>
+                <li>24/7 support during your trip</li>
               </ol>
-            </Box>
+            </Box> */}
           </Paper>
         </Grid>
       </Grid>
