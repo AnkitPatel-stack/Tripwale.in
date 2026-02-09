@@ -8,6 +8,7 @@ import Trekking from '../pages/Trekking'
 import AboutUs from '../pages/AboutUs'
 import ContactUs from '../pages/ContactUs'
 import OneDayTrips from '../pages/OneDayTrips'
+import TourDetails from '../pages/TourDetails'
 
 const AppRoutes = () => {
     return (
@@ -22,6 +23,7 @@ const AppRoutes = () => {
                 <Route path="/trekking" element={<Trekking />} />
                 <Route path="/about" element={<AboutUs />} />
                 <Route path="/contact" element={<ContactUs />} />
+                <Route path="tour/:id" element={<TourDetails/>}/>
             </Route>
             
             {/* 404 page */}
