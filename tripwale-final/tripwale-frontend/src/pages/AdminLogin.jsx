@@ -145,9 +145,9 @@ const AdminLogin = () => {
             </Box>
 
             <Box sx={{ mt: 3, p: 2, borderRadius: 2, bgcolor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', display: 'block', textAlign: 'center' }}>
+              {/* <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.4)', display: 'block', textAlign: 'center' }}>
                 Default: admin@tripwale.in / Admin@123
-              </Typography>
+              </Typography> */}
             </Box>
           </CardContent>
         </Card>
