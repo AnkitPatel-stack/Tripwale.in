@@ -1,1 +1,25 @@
 
+services:
+  - type: web
+    name: tripwale-backend
+    runtime: node
+    repo: https://github.com/AnkitPatel-stack/Tripwale.in
+    branch: main
+    rootDir: tripwale-backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ADMIN_EMAIL
+        value: admin@tripwale.in
+      - key: ADMIN_PASSWORD
+        value: Admin@123
+      - key: FRONTEND_URL
+        value: https://tripwale-final.vercel.app
