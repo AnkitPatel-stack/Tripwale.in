@@ -65,8 +65,12 @@ const fadeIn = keyframes`
 `
 
 const continuousSlide = keyframes`
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 `
 
 const Home = () => {
@@ -148,107 +152,87 @@ const Home = () => {
 
   // Customer Reviews Data
   const customerReviews = [
-    {
-      id: 1,
-      name: 'Rajesh Kumar',
-      location: 'Mumbai',
-      rating: 5,
-      date: '2 weeks ago',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
-      comment: 'The Kashmir tour was absolutely magical! The houseboat stay and shikara ride were unforgettable. TripWale.in made everything seamless.',
-      tour: 'Kashmir Paradise Tour'
-    },
-    {
-      id: 2,
-      name: 'Priya Sharma',
-      location: 'Delhi',
-      rating: 4.5,
-      date: '1 month ago',
-      avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
-      comment: 'Excellent service! Our family had a wonderful time in Kerala. The backwater cruise was the highlight. Highly recommended!',
-      tour: 'Kerala Backwaters'
-    },
-    {
-      id: 3,
-      name: 'Amit Verma',
-      location: 'Bangalore',
-      rating: 5,
-      date: '3 weeks ago',
-      avatar: 'https://randomuser.me/api/portraits/men/67.jpg',
-      comment: 'Best travel experience ever! Rajasthan tour was perfectly organized. Hotels, food, and sightseeing were all top-notch.',
-      tour: 'Rajasthan Heritage Tour'
-    },
-    {
-      id: 4,
-      name: 'Sunita Mehta',
-      location: 'Chennai',
-      rating: 4.8,
-      date: '2 months ago',
-      avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
-      comment: 'The Char Dham Yatra was spiritually enriching. Everything was well arranged. Will definitely travel with TripWale again.',
-      tour: 'Char Dham Yatra'
-    },
-    {
-      id: 5,
-      name: 'Vikram Singh',
-      location: 'Pune',
-      rating: 4.7,
-      date: '1 week ago',
-      avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
-      comment: 'Goa trip was fantastic! Great hotels, amazing beaches, and excellent coordination. Perfect for our group of friends.',
-      tour: 'Goa Beach Holiday'
-    },
-    {
-      id: 6,
-      name: 'Neha Patel',
-      location: 'Ahmedabad',
-      rating: 5,
-      date: '3 days ago',
-      avatar: 'https://randomuser.me/api/portraits/women/26.jpg',
-      comment: 'Ladakh road trip was an adventure of a lifetime! Well-planned itinerary and excellent support throughout.',
-      tour: 'Ladakh Road Trip'
-    },
-    {
-      id: 7,
-      name: 'Sanjay Gupta',
-      location: 'Hyderabad',
-      rating: 4.9,
-      date: '1 month ago',
-      avatar: 'https://randomuser.me/api/portraits/men/81.jpg',
-      comment: 'South India temple tour was culturally enriching. The guide was knowledgeable and hotels were comfortable.',
-      tour: 'South India Temple Tour'
-    },
-    {
-      id: 8,
-      name: 'Anjali Desai',
-      location: 'Kolkata',
-      rating: 4.6,
-      date: '2 weeks ago',
-      avatar: 'https://randomuser.me/api/portraits/women/56.jpg',
-      comment: 'Himalayan trek was challenging but rewarding. Safety was their priority. Great for adventure lovers!',
-      tour: 'Himalayan Adventure Trek'
-    },
-    {
-      id: 9,
-      name: 'Rahul Nair',
-      location: 'Kochi',
-      rating: 4.8,
-      date: '5 days ago',
-      avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
-      comment: 'Excellent value for money! The entire trip was hassle-free. Special thanks to the customer support team.',
-      tour: 'Kashmir Paradise Tour'
-    },
-    {
-      id: 10,
-      name: 'Meera Reddy',
-      location: 'Jaipur',
-      rating: 5,
-      date: '3 weeks ago',
-      avatar: 'https://randomuser.me/api/portraits/women/33.jpg',
-      comment: 'Our honeymoon in Kashmir was perfect thanks to TripWale. They customized everything as per our preferences.',
-      tour: 'Kashmir Paradise Tour'
-    }
-  ]
+{
+id:1,
+name:"Rohit Sharma",
+location:"Delhi",
+rating:4.8,
+date:"1 month ago",
+avatar:"https://i.pravatar.cc/150?img=12",
+comment:"Kashmir trip bahut hi amazing tha. Hotels ache the aur driver bhi bahut cooperative tha. Pure trip me koi tension nahi hui.",
+tour:"Kashmir Paradise Tour"
+},
+{
+id:2,
+name:"Pooja Gupta",
+location:"Indore",
+rating:5,
+date:"3 weeks ago",
+avatar:"https://i.pravatar.cc/150?img=47",
+comment:"Kerala backwaters experience life ka best trip tha. Houseboat stay bahut peaceful tha. TripWale team ne sab perfect arrange kiya.",
+tour:"Kerala Backwaters"
+},
+{
+id:3,
+name:"Aman Verma",
+location:"Lucknow",
+rating:4.7,
+date:"2 weeks ago",
+avatar:"https://i.pravatar.cc/150?img=33",
+comment:"Rajasthan tour me Jaipur aur Jaisalmer sabse zyada pasand aaye. Desert safari amazing thi. Overall value for money trip.",
+tour:"Rajasthan Heritage Tour"
+},
+{
+id:4,
+name:"Neha Patel",
+location:"Ahmedabad",
+rating:4.9,
+date:"10 days ago",
+avatar:"https://i.pravatar.cc/150?img=49",
+comment:"Goa trip friends ke saath plan kiya tha. Hotel location beach ke bahut close thi aur pura experience mast tha.",
+tour:"Goa Beach Holiday"
+},
+{
+id:5,
+name:"Sandeep Mishra",
+location:"Varanasi",
+rating:4.8,
+date:"3 weeks ago",
+avatar:"https://i.pravatar.cc/150?img=14",
+comment:"Char Dham yatra smoothly complete hui. Elderly parents ke saath travel tha but sab arrangements perfect the.",
+tour:"Char Dham Yatra"
+},
+{
+id:6,
+name:"Anjali Singh",
+location:"Bhopal",
+rating:5,
+date:"5 days ago",
+avatar:"https://i.pravatar.cc/150?img=44",
+comment:"Ladakh road trip unforgettable tha. Scenery mind blowing thi aur itinerary bhi perfectly planned thi.",
+tour:"Ladakh Road Trip"
+},
+{
+id:7,
+name:"Rahul Nair",
+location:"Kochi",
+rating:4.7,
+date:"1 month ago",
+avatar:"https://i.pravatar.cc/150?img=18",
+comment:"South India temple tour cultural experience tha. Guide knowledgeable tha aur travel comfortable tha.",
+tour:"South India Temple Tour"
+},
+{
+id:8,
+name:"Meera Desai",
+location:"Surat",
+rating:4.9,
+date:"2 weeks ago",
+avatar:"https://i.pravatar.cc/150?img=48",
+comment:"Himalayan trekking adventure life changing experience tha. Safety aur support dono excellent the.",
+tour:"Himalayan Adventure Trek"
+}
+]
 
   // Duplicate reviews for seamless infinite scroll
   const allReviews = [...customerReviews, ...customerReviews]
@@ -698,20 +682,21 @@ const Home = () => {
               zIndex: 2
             }
           }}>
-            <Box
-              ref={reviewsContainerRef}
-              sx={{
-                display: 'flex',
-                animation: `${continuousSlide} 60s linear infinite`,
-                '&:hover': {
-                  animationPlayState: 'paused'
-                }
-              }}
-            >
-              {allReviews.map((review, index) => (
-                <ReviewCard key={`${review.id}-${index}`} review={review} index={index} />
-              ))}
-            </Box>
+           <Box
+  ref={reviewsContainerRef}
+  sx={{
+    display: "flex",
+    width: "max-content",
+    animation: `${continuousSlide} 80s linear infinite`,
+    '&:hover': {
+      animationPlayState: "paused"
+    }
+  }}
+>
+  {allReviews.map((review, index) => (
+    <ReviewCard key={index} review={review} index={index} />
+  ))}
+</Box>
           </Box>
 
           {/* Review Stats */}
