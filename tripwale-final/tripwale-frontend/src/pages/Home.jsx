@@ -933,21 +933,21 @@ tour:"Himalayan Adventure Trek"
 
                   <Box sx={{ overflow: 'hidden' }}>
                     <CardMedia
-                      className="tour-image"
-                      component="img"
-                      height="180"
-                     image={
-  tour.image?.startsWith("http")
-    ? tour.image.replace("http://", "https://")
-    : `https://tripwale-backend.onrender.com${tour.image}`
-}
-                      alt={tour.title}
-                      sx={{
-                        transition: 'transform 0.5s ease',
-                        width: '100%',
-                        objectFit: 'cover'
-                      }}
-                    />
+  className="tour-image"
+  component="img"
+  height="180"
+  image={
+    tour.image?.startsWith("http")
+      ? tour.image.replace("http://", "https://")
+      : `https://tripwale-backend.onrender.com${tour.image}`
+  }
+  alt={tour.title}
+  sx={{
+    transition: 'transform 0.5s ease',
+    width: '100%',
+    objectFit: 'cover'
+  }}
+/>
                   </Box>
 
                   <CardContent sx={{ flexGrow: 1, p: { xs: 2, sm: 2.5 } }}>
