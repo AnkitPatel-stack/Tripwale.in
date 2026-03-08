@@ -936,7 +936,11 @@ tour:"Himalayan Adventure Trek"
                       className="tour-image"
                       component="img"
                       height="180"
-                      image={`https://tripwale-backend.onrender.com${tour.image}`}
+                     image={
+  tour.image?.startsWith("http")
+    ? tour.image.replace("http://", "https://")
+    : `https://tripwale-backend.onrender.com${tour.image}`
+}
                       alt={tour.title}
                       sx={{
                         transition: 'transform 0.5s ease',
