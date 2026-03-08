@@ -81,9 +81,10 @@ export const reviewsAPI = {
   getAll: (params = {}) => api.get('/reviews', { params }),
   getApproved: () => api.get('/reviews', { params: { approved: true } }),
   create: (data) => api.post('/reviews', data),
+  approve: (id) => api.patch(`/reviews/${id}/approve`),
+  reject: (id) => api.patch(`/reviews/${id}/reject`),
   update: (id, data) => api.put(`/reviews/${id}`, data),
   delete: (id) => api.delete(`/reviews/${id}`),
-  approve: (id) => api.patch(`/reviews/${id}/approve`),
 }
 
 // ─── Contact ─────────────────────────────────────────────────────────────

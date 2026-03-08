@@ -9,6 +9,13 @@ require('dotenv').config()
 
 const app = express()
 
+// ─── Force HTTPS in production (fixes Mixed Content errors) ──────────────
+app.use((req, res, next) => {
+  // Trust Render.com / Vercel proxy headers for HTTPS detection
+  app.set('trust proxy', 1)
+  next()
+})
+
 // ─── Security & Middleware ─────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
 app.use(morgan('dev'))

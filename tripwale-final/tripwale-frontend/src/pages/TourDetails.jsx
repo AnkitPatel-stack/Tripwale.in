@@ -17,6 +17,17 @@ import { reviewsAPI } from '../services/api'
 
 const fadeIn = keyframes`from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}`
 
+// Fix image URL - always HTTPS
+const fixImageUrl = (url) => {
+  if (!url) return null
+  url = url.replace(/^http:\/\//, 'https://')
+  if (url.startsWith('/uploads/')) {
+    const base = import.meta.env.VITE_API_URL?.replace('/api', '') || ''
+    url = base + url
+  }
+  return url
+}
+
 const TourDetails = () => {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -68,7 +79,7 @@ const TourDetails = () => {
     )
   }
 
-  const allImages = [tour.image, ...(tour.gallery || [])].filter(Boolean)
+  const allImages = [fixImageUrl(tour.image), ...(tour.gallery || [])].filter(Boolean)
 
   return (
     <Box sx={{ animation: `${fadeIn} 0.4s ease` }}>
@@ -122,7 +133,7 @@ const TourDetails = () => {
                   border: selectedImage === i ? '3px solid #3b82f6' : '2px solid rgba(255,255,255,0.5)',
                   transition: 'all 0.2s',
                 }}>
-                <img src={img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => e.target.style.display='none'} />
+                <img src={fixImageUrl(img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={(e) => e.target.style.display='none'} />
               </Box>
             ))}
           </Box>

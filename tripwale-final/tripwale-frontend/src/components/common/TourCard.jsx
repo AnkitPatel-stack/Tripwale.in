@@ -6,6 +6,21 @@ import {
 import { LocationOn, CalendarToday, Star, WhatsApp } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 
+// Fix image URL — replace http:// with https://, keep external URLs as-is
+const fixImageUrl = (url) => {
+  if (!url) return null
+  // Force HTTPS
+  url = url.replace(/^http:\/\//, 'https://')
+  // If it's a local /uploads/ path, prepend the backend URL
+  if (url.startsWith('/uploads/')) {
+    const backendUrl = import.meta.env.VITE_API_URL
+      ? import.meta.env.VITE_API_URL.replace('/api', '')
+      : ''
+    url = backendUrl + url
+  }
+  return url
+}
+
 const TourCard = ({ tour, onBook }) => {
   const navigate = useNavigate()
 
@@ -35,7 +50,7 @@ const TourCard = ({ tour, onBook }) => {
         <CardMedia
           className="tour-img"
           component="img"
-          image={tour.image || 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600'}
+          image={fixImageUrl(tour.image) || 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600'}
           alt={tour.title}
           sx={{
             height: '100%', width: '100%', objectFit: 'cover',
